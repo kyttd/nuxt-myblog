@@ -1,7 +1,7 @@
 <template>
   <div>
     <footer>
-      <div class="flex pb-5 px-3 m-auto pt-5 border-t text-gray-800 text-sm flex-col md:flex-row max-w-screen-lg">
+      <div class="flex pb-5 px-6 m-auto pt-5 border-t text-gray-800 text-sm flex-col md:flex-row max-w-screen-lg">
         <div class="mt-2">
           © Copyright 2021. @hal_sea_
         </div>

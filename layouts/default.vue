@@ -1,5 +1,5 @@
 <template>
-  <div class="flex flex-col min-h-screen">
+  <div class="flex flex-col min-h-screen bg-gray-50 text-navy-mad">
     <Header />
     <main class="container flex-grow mx-auto px-6 py-8 max-w-screen-lg">
       <nuxt />

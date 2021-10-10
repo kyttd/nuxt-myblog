@@ -8,7 +8,11 @@ module.exports = {
   ],
   darkMode: false, // or 'media' or 'class'
   theme: {
-    extend: {},
+    colors: {
+      navy: {
+        mad: '#364961'
+      }
+    }
   },
   variants: {
     extend: {},
