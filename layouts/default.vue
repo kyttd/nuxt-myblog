@@ -1,7 +1,7 @@
 <template>
   <div class="flex flex-col min-h-screen bg-gray-50 text-navy-mad">
     <Header />
-    <main class="container flex-grow mx-auto px-6 py-8 max-w-screen-lg">
+    <main class="container flex-grow mx-auto px-4 py-4 sm:px-6 sm:py-8 text-sm sm:text-base max-w-screen-lg">
       <nuxt />
     </main>
     <Footer />

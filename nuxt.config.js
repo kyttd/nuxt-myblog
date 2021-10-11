@@ -1,3 +1,5 @@
+import axios from 'axios'
+
 export default {
   // Target: https://go.nuxtjs.dev/config-target
   target: 'static',
@@ -46,11 +48,19 @@ export default {
   build: {
   },
 
-  microcms: {
-    options: {
-      serviceDomain: process.env.SERVICE_DOMAIN,
-      apiKey: process.env.API_KEY
-    },
-    mode: process.env.NODE_ENV === 'production' ? 'server' : 'all',
+  generate: {
+    async routes() {
+      const pages = await axios
+        .get(`https://${process.env.SERVICE_DOMAIN}.microcms.io/api/v1/blog?limit=100`, {
+          headers: { 'X-API-KEY': process.env.API_KEY }
+        })
+        .then((res) =>
+          res.data.contents.map((content) => ({
+            route: `/${content.id}`,
+            payload: content
+          }))
+        )
+      return pages
+    }
   }
 }

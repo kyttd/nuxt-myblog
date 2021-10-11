@@ -3,23 +3,25 @@
     <div class="w-full">
       <div class="flex items-center justify-between">
         <h1 class="text-base font-bold">
-          📝 最新の記事
+          📝 最新記事
         </h1>
       </div>
       <div class="mt-2">
         <ul class="divide-y divide-gray-300 divide-opacity-25">
           <li v-for="content in contents" :key="content.id" class="py-2 px-4">
             <nuxt-link :to="`/${content.id}`">
-              <p class="font-bold">
+              <p class="font-bold mb-2">
                 {{ content.title }}
               </p>
             </nuxt-link>
-            <p class="text-sm">
-              カテゴリ: todo
-            </p>
-            <p class="text-sm">
-              {{ content.createdAt }}
-            </p>
+            <div class="flex flex-wrap items-start">
+              <p class="text-sm mr-4">
+                🔖  todo
+              </p>
+              <p class="text-sm">
+                📅  {{ publishedDate(content) }}
+              </p>
+            </div>
           </li>
         </ul>
       </div>
@@ -38,18 +40,37 @@
   </div>
 </template>
 
-<script>
+<script lang="ts">
+import Vue from 'vue'
 import axios from 'axios'
+import dayjs from 'dayjs'
+import { BlogItem, BlogIndexApiResponse } from '../types/blog/index'
 
-export default {
-  async asyncData () {
-    const { data } = await axios.get(
-      `https://${process.env.SERVICE_DOMAIN}.microcms.io/api/v1/blog`,
-      {
-        headers: { 'X-API-KEY': process.env.API_KEY }
+interface AsyncData extends BlogIndexApiResponse {}
+
+export default Vue.extend({
+  async asyncData ():Promise<AsyncData | void> {
+    const axiosInstance = axios.create({
+      method: 'get',
+      headers: {
+        'Content-Type': 'application/json',
+        'X-API-KEY': process.env.API_KEY as string
       }
+    })
+    const { data } = await axiosInstance.get<BlogIndexApiResponse>(
+      `https://${process.env.SERVICE_DOMAIN}.microcms.io/api/v1/blog`
     )
     return data
+  },
+  data (): AsyncData | undefined {
+    return undefined
+  },
+  computed: {
+    publishedDate () {
+      return function (content: BlogItem) {
+        return dayjs(content.publishedAt).format('YYYY-MM-DD')
+      }
+    }
   }
-}
+})
 </script>

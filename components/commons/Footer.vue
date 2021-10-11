@@ -1,12 +1,12 @@
 <template>
   <div>
     <footer>
-      <div class="flex pb-5 px-6 m-auto pt-5 border-t text-gray-800 text-sm flex-col md:flex-row max-w-screen-lg">
+      <div class="flex pb-5 px-4 m-auto pt-5 border-t text-gray-800 text-sm flex-col md:flex-row max-w-screen-lg">
         <div class="mt-2">
           © Copyright 2021. @hal_sea_
         </div>
         <div class="md:flex-auto md:flex-row-reverse mt-2 flex-row flex">
-          <a href="/#" class="w-6 mx-1">
+          <a href="https://twitter.com/hal_sea_" class="w-6 mx-1">
             <svg class="fill-current cursor-pointer text-gray-500 hover:text-gray-400" width="100%" height="100%" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" xmlns:serif="http://www.serif.com/" style="fill-rule: evenodd; clip-rule: evenodd; stroke-linejoin: round; stroke-miterlimit: 2;">
               <path id="Twitter" d="M24,12c0,6.627 -5.373,12 -12,12c-6.627,0 -12,-5.373 -12,-12c0,-6.627
                   5.373,-12 12,-12c6.627,0 12,5.373 12,12Zm-6.465,-3.192c-0.379,0.168
