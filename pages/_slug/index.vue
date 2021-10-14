@@ -9,7 +9,7 @@
       </p>
     </div>
     <div class="py-4 px-2">
-      <div class="post" v-html="body"></div>
+      <div class="prose" v-html="body"></div>
     </div>
   </div>
 </template>
