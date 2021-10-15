@@ -20,9 +20,10 @@ export default {
       { hid: 'og:type', property: 'og:type', content: 'website' },
       { hid: 'og:url', property: 'og:url', content: 'https://halsea-blog.netlify.app/' },
       { hid: 'og:title', property: 'og:title', content: 'hal_sea_ / blog' },
-      { hid: 'og:description', property: 'og:description', content: '@hal_sea_のブログ。主にプログラミングについて発信します。' },
-      { hid: 'og:image', property: 'og:image', content: 'https://halsea-blog.netlify.app/static/ogp-logo.png' },
+      { hid: 'og:description', property: 'og:description', content: '都内のWebエンジニア、@hal_sea_のブログ。主にプログラミングについて発信します。' },
+      { hid: 'og:image', property: 'og:image', content: 'https://halsea-blog.netlify.app/ogp-logo.png' },
       { name: 'twitter:card', content: 'summary_large_image' },
+      { name: 'twitter:site', content: '@hal_sea_' }
     ],
     link: [
       { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }
