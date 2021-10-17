@@ -1,7 +1,9 @@
 <template>
-  <div class="flex flex-wrap items-start w-full sm:w-3/4 m-auto">
-    <div class="flex justify-center items-center">
-      <h1 class="text-2xl font-bold mb-2">{{ title }}</h1>
+  <div class="m-auto w-full sm:w-3/4 min-h-screen">
+    <div class="justify-center items-center">
+      <h1 class="break-words sm:break-normal text-2xl font-bold mb-2">
+        {{ title }}
+      </h1>
     </div>
     <div class="w-full pb-2 border-b">
       <p class="publishedAt">
