@@ -50,7 +50,7 @@ export default Vue.extend({
     //   return encodeURIComponent(`${this.text} ${this.url}`)
     // },
     twitterURL (): string {
-      return `https://twitter.com/intent/tweet?url=${this.url}&text=${this.textAndHashTag}`
+      return `https://twitter.com/intent/tweet?url=${this.url}/&text=${this.textAndHashTag}`
     }
     // facebookURL() {
     //   return `https://www.facebook.com/sharer/sharer.php?u=${this.url}`;
