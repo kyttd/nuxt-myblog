@@ -11,6 +11,9 @@
     <div class="py-4 px-2">
       <div class="prose" v-html="body"></div>
     </div>
+    <div class="mt-2">
+      <SnsShareButton :text="formatedTitle" />
+    </div>
   </div>
 </template>
 
@@ -18,13 +21,17 @@
 import Vue from 'vue'
 import axios from 'axios'
 import dayjs from 'dayjs'
+import MetaInfo from 'vue-meta'
 import { BlogItem } from '../../types/blog/index'
+import SnsShareButton from '~/components/commons/SnsShareButton.vue'
 
 interface AsyncData extends BlogItem {}
 
 export default Vue.extend({
+  components: {
+    SnsShareButton
+  },
   async asyncData ({ params }):Promise<AsyncData | void> {
-    console.log(params)
     const axiosInstance = axios.create({
       method: 'get',
       headers: {
@@ -40,9 +47,27 @@ export default Vue.extend({
   data (): AsyncData | undefined {
     return undefined
   },
+  head (): MetaInfo {
+    return {
+      title: this.formatedTitle,
+      meta: [
+        { hid: 'og:type', property: 'og:type', content: 'article' },
+        { hid: 'og:title', property: 'og:title', content: this.formatedTitle },
+        { hid: 'og:description', property: 'og:description', content: this.descriptionContent },
+        { hid: 'og:url', property: 'og:url', content: `https://halsea-blog.netlify.app/${this.id}/` }
+      ]
+    }
+  },
   computed: {
-    publishedDate () {
-      return dayjs(this.$data.publishedAt).format('YYYY-MM-DD')
+    publishedDate (): string {
+      return dayjs(this.publishedAt).format('YYYY-MM-DD')
+    },
+    formatedTitle (): string {
+      return `${this.title} | hal_sea_ / blog`
+    },
+    descriptionContent (): string {
+      const content = this.body.replace(/<("[^"]*"|'[^']*'|[^'">])*>/g, '')
+      return content.length > 120 ? content.slice(0, 120) + '...' : content
     }
   }
 })

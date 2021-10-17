@@ -1,12 +1,15 @@
 import axios from 'axios'
 
+const siteName = 'hal_sea_ / blog'
+const baseUrl = 'https://halsea-blog.netlify.app/'
+
 export default {
   // Target: https://go.nuxtjs.dev/config-target
   target: 'static',
 
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
-    title: 'hal_sea_ / blog',
+    title: siteName,
     htmlAttrs: {
       lang: 'en',
       prefix: 'og: http://ogp.me/ns#'
@@ -14,14 +17,14 @@ export default {
     meta: [
       { charset: 'utf-8' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
-      { hid: 'description', name: 'description', content: '@hal_sea_のブログ。主にプログラミングについて発信します。' },
+      { hid: 'description', name: 'description', content: '都内のWebエンジニア、ハル(@hal_sea_)のブログ。主にプログラミングについて発信します。' },
       { name: 'format-detection', content: 'telephone=no' },
-      { hid: 'og:site_name', property: 'og:site_name', content: 'hal_sea_ / blog' },
+      { hid: 'og:site_name', property: 'og:site_name', content: siteName },
       { hid: 'og:type', property: 'og:type', content: 'website' },
-      { hid: 'og:url', property: 'og:url', content: 'https://halsea-blog.netlify.app/' },
-      { hid: 'og:title', property: 'og:title', content: 'hal_sea_ / blog' },
-      { hid: 'og:description', property: 'og:description', content: '都内のWebエンジニア、@hal_sea_のブログ。主にプログラミングについて発信します。' },
-      { hid: 'og:image', property: 'og:image', content: 'https://halsea-blog.netlify.app/ogp-logo.png' },
+      { hid: 'og:url', property: 'og:url', content: baseUrl },
+      { hid: 'og:title', property: 'og:title', content: siteName },
+      { hid: 'og:description', property: 'og:description', content: '都内のWebエンジニア、ハル(@hal_sea_)のブログ。主にプログラミングについて発信します。' },
+      { hid: 'og:image', property: 'og:image', content: `${baseUrl}ogp-logo.png` },
       { name: 'twitter:card', content: 'summary_large_image' },
       { name: 'twitter:site', content: '@hal_sea_' }
     ],
