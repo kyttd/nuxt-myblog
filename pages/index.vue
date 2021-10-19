@@ -10,17 +10,30 @@
         <ul class="divide-y divide-gray-300 divide-opacity-25">
           <li v-for="content in contents" :key="content.id" class="py-2 px-4">
             <nuxt-link :to="`/${content.id}`">
-              <p class="font-bold mb-2">
+              <p class="font-bold mb-1">
                 {{ content.title }}
               </p>
             </nuxt-link>
             <div class="flex flex-wrap items-start">
-              <p class="text-sm mr-4">
-                🔖  todo
-              </p>
-              <p class="text-sm">
-                📅  {{ publishedDate(content) }}
-              </p>
+              <div class="justify-center items-start">
+                <div class="mr-4">
+                  <span>🗂 </span>
+                  <nuxt-link v-if="content.category" :to="`/category/${content.category.id}/page/1`">
+                    <span class="text-sm">
+                      {{ content.category.name }}
+                    </span>
+                  </nuxt-link>
+                  <template v-if="content.tags">
+                    <span>🔖 </span>
+                    <span v-for="tag in content.tags" :key="tag.id" class="text-sm">
+                      #{{ tag.name }}
+                    </span>
+                  </template>
+                </div>
+                <span class="text-sm">
+                  📅  {{ publishedDate(content) }}
+                </span>
+              </div>
             </div>
           </li>
         </ul>
@@ -38,7 +51,7 @@ import { BlogItem, BlogIndexApiResponse } from '../types/blog/index'
 interface AsyncData extends BlogIndexApiResponse {}
 
 export default Vue.extend({
-  async asyncData ():Promise<AsyncData | void> {
+  async asyncData ({ params }):Promise<AsyncData | void> {
     const axiosInstance = axios.create({
       method: 'get',
       headers: {
@@ -46,8 +59,13 @@ export default Vue.extend({
         'X-API-KEY': process.env.API_KEY as string
       }
     })
+    const page = params.p || '1'
+    const categoryId = params.categoryId
+    const limit = 20
     const { data } = await axiosInstance.get<BlogIndexApiResponse>(
-      `https://${process.env.SERVICE_DOMAIN}.microcms.io/api/v1/blog`
+      `https://${process.env.SERVICE_DOMAIN}.microcms.io/api/v1/blog?limit=${limit}${
+        categoryId === undefined ? '' : `&filters=category[equals]${categoryId}`
+      }&offset=${(parseInt(page) - 1) * limit}`
     )
     return data
   },

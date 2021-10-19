@@ -6,7 +6,19 @@
       </h1>
     </div>
     <div class="w-full pb-2 border-b">
-      <p class="publishedAt">
+      <div>
+        <span>🗂 </span>
+        <nuxt-link v-if="category" :to="`/category/${category.id}/page/1`">
+          <span>
+            {{ category.name }}
+          </span>
+        </nuxt-link>
+        <span>🔖 </span>
+        <span v-for="tag in tags" :key="tag.id">
+          #{{ tag.name }}
+        </span>
+      </div>
+      <p class="mt-1">
         📅  {{ publishedDate }}
       </p>
     </div>
