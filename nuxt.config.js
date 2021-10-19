@@ -60,19 +60,61 @@ export default {
   build: {
   },
 
+  router: {
+    extendRoutes (routes, resolve) {
+      routes.push({
+        path: '/page/:p',
+        component: resolve(__dirname, 'pages/index.vue'),
+        name: 'page'
+      })
+      routes.push({
+        path: '/category/:categoryId/page/:p',
+        component: resolve(__dirname, 'pages/index.vue'),
+        name: 'category'
+      })
+    }
+  },
+
   generate: {
     async routes() {
+      const limit = 20
+      const range = (start, end) =>
+        [...Array(end - start + 1)].map((_, i) => start + i)
+
+      // 一覧のページング
       const pages = await axios
-        .get(`https://${process.env.SERVICE_DOMAIN}.microcms.io/api/v1/blog?limit=100`, {
+        .get(`https://${process.env.SERVICE_DOMAIN}.microcms.io/api/v1/blog?limit=0`, {
           headers: { 'X-API-KEY': process.env.API_KEY }
         })
         .then((res) =>
-          res.data.contents.map((content) => ({
-            route: `/${content.id}`,
-            payload: content
+          range(1, Math.ceil(res.data.totalCount / limit)).map((p) => ({
+            route: `/page/${p}`
           }))
         )
-      return pages
-    }
+      const categories = await axios
+        .get(`https://${process.env.SERVICE_DOMAIN}.microcms.io/api/v1/categories?fields=id`, {
+          headers: { 'X-API-KEY': process.env.API_KEY }
+        })
+        .then(({ data }) => {
+          return data.contents.map((content) => content.id)
+        })
+      // カテゴリーページのページング
+      const categoryPages = await Promise.all(
+        categories.map((category) =>
+          axios.get(
+            `https://${process.env.SERVICE_DOMAIN}.microcms.io/api/v1/blog?limit=0&filters=category[equals]${category}`,
+            { headers: { 'X-API-KEY': process.env.API_KEY } }
+          )
+            .then((res) =>
+              range(1, Math.ceil(res.data.totalCount / 10)).map((p) => ({
+                route: `/category/${category}/page/${p}`
+              })))
+        )
+      )
+      // 2次元配列になってるのでフラットにする
+      const flattenCategoryPages = [].concat.apply([], categoryPages)
+      return [...pages, ...flattenCategoryPages]
+    },
+    dir: 'dist'
   }
 }
