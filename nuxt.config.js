@@ -72,11 +72,16 @@ export default {
         component: resolve(__dirname, 'pages/index.vue'),
         name: 'category'
       })
+      routes.push({
+        path: '/tag/:tagId/page/:p',
+        component: resolve(__dirname, 'pages/index.vue'),
+        name: 'tag'
+      })
     }
   },
 
   generate: {
-    async routes() {
+    async routes () {
       const limit = 20
       const range = (start, end) =>
         [...Array(end - start + 1)].map((_, i) => start + i)
@@ -86,8 +91,8 @@ export default {
         .get(`https://${process.env.SERVICE_DOMAIN}.microcms.io/api/v1/blog?limit=0`, {
           headers: { 'X-API-KEY': process.env.API_KEY }
         })
-        .then((res) =>
-          range(1, Math.ceil(res.data.totalCount / limit)).map((p) => ({
+        .then(res =>
+          range(1, Math.ceil(res.data.totalCount / limit)).map(p => ({
             route: `/page/${p}`
           }))
         )
@@ -96,24 +101,45 @@ export default {
           headers: { 'X-API-KEY': process.env.API_KEY }
         })
         .then(({ data }) => {
-          return data.contents.map((content) => content.id)
+          return data.contents.map(content => content.id)
+        })
+      const tags = await axios
+        .get(`https://${process.env.SERVICE_DOMAIN}.microcms.io/api/v1/tags?fields=id`, {
+          headers: { 'X-API-KEY': process.env.API_KEY }
+        })
+        .then(({ data }) => {
+          return data.contents.map(content => content.id)
         })
       // カテゴリーページのページング
       const categoryPages = await Promise.all(
-        categories.map((category) =>
+        categories.map(category =>
           axios.get(
             `https://${process.env.SERVICE_DOMAIN}.microcms.io/api/v1/blog?limit=0&filters=category[equals]${category}`,
             { headers: { 'X-API-KEY': process.env.API_KEY } }
           )
-            .then((res) =>
-              range(1, Math.ceil(res.data.totalCount / 10)).map((p) => ({
+            .then(res =>
+              range(1, Math.ceil(res.data.totalCount / 10)).map(p => ({
                 route: `/category/${category}/page/${p}`
+              })))
+        )
+      )
+      // タグページのページング
+      const tagPages = await Promise.all(
+        tags.map(tag =>
+          axios.get(
+            `https://${process.env.SERVICE_DOMAIN}.microcms.io/api/v1/blog?limit=0&filters=tags[contains]${tag}`,
+            { headers: { 'X-API-KEY': process.env.API_KEY } }
+          )
+            .then(res =>
+              range(1, Math.ceil(res.data.totalCount / 10)).map(p => ({
+                route: `/tag/${tag}/page/${p}`
               })))
         )
       )
       // 2次元配列になってるのでフラットにする
       const flattenCategoryPages = [].concat.apply([], categoryPages)
-      return [...pages, ...flattenCategoryPages]
+      const flattenTagPages = [].concat.apply([], tagPages)
+      return [...pages, ...flattenCategoryPages, ...flattenTagPages]
     },
     dir: 'dist'
   }
