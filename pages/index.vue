@@ -26,7 +26,9 @@
                   <template v-if="content.tags">
                     <span>🔖 </span>
                     <span v-for="tag in content.tags" :key="tag.id" class="text-sm">
-                      #{{ tag.name }}
+                      <nuxt-link :to="`/tag/${tag.id}/page/1`">
+                        #{{ tag.name }}
+                      </nuxt-link>
                     </span>
                   </template>
                 </div>
@@ -61,10 +63,13 @@ export default Vue.extend({
     })
     const page = params.p || '1'
     const categoryId = params.categoryId
+    const tagId = params.tagId
     const limit = 20
     const { data } = await axiosInstance.get<BlogIndexApiResponse>(
       `https://${process.env.SERVICE_DOMAIN}.microcms.io/api/v1/blog?limit=${limit}${
-        categoryId === undefined ? '' : `&filters=category[equals]${categoryId}`
+        (categoryId === undefined && tagId === undefined)
+        ? ''
+        : categoryId !== undefined ? `&filters=category[equals]${categoryId}` : `&filters=tags[contains]${tagId}`
       }&offset=${(parseInt(page) - 1) * limit}`
     )
     return data

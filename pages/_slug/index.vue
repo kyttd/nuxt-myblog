@@ -15,7 +15,9 @@
         </nuxt-link>
         <span>🔖 </span>
         <span v-for="tag in tags" :key="tag.id">
-          #{{ tag.name }}
+          <nuxt-link :to="`/tag/${tag.id}/page/1`">
+            #{{ tag.name }}
+          </nuxt-link>
         </span>
       </div>
       <p class="mt-1">
@@ -23,7 +25,7 @@
       </p>
     </div>
     <div class="py-4 px-2">
-      <div class="prose" v-html="body"></div>
+      <div class="prose" v-html="body" />
     </div>
     <div class="mt-2">
       <SnsShareButton :text="formatedTitle" />
