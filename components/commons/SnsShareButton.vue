@@ -1,14 +1,22 @@
 <template>
   <div>
     <div>
-      <h2 class="font-bold">
-        - シェアする -
-      </h2>
+      <h2 class="font-bold">- シェアする -</h2>
       <ul class="flex flex-wrap">
         <!-- Twitter -->
         <li class="py-2">
-          <a class="flex justify-center items-center" :href="twitterURL" target="_blank">
-            <span><img src="~/assets/images/twitter.svg" alt="Twitter" width="24" height="24"></span>
+          <a
+            class="flex items-center justify-center"
+            :href="twitterURL"
+            target="_blank"
+          >
+            <span
+              ><img
+                src="~/assets/images/twitter.svg"
+                alt="Twitter"
+                width="24"
+                height="24"
+            /></span>
           </a>
         </li>
         <!-- TODO: 一旦Twitterのみ -->
@@ -40,16 +48,16 @@ export default Vue.extend({
     hashTag: { type: String, required: false, default: '' }
   },
   computed: {
-    url (): string {
+    url(): string {
       return `https://halsea-blog.netlify.app${this.$route.path}`
     },
-    textAndHashTag (): string {
+    textAndHashTag(): string {
       return encodeURIComponent(`${this.text} ${this.hashTag}`)
     },
     // content () {
     //   return encodeURIComponent(`${this.text} ${this.url}`)
     // },
-    twitterURL (): string {
+    twitterURL(): string {
       return `https://twitter.com/intent/tweet?url=${this.url}/&text=${this.textAndHashTag}`
     }
     // facebookURL() {
