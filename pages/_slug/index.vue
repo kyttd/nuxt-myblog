@@ -1,11 +1,11 @@
 <template>
-  <div class="m-auto w-full sm:w-3/4 min-h-screen">
-    <div class="justify-center items-center">
-      <h1 class="break-words sm:break-normal text-2xl font-bold mb-2">
+  <div class="m-auto w-full min-h-screen sm:w-3/4">
+    <div class="items-center justify-center">
+      <h1 class="mb-2 break-words text-2xl font-bold sm:break-normal">
         {{ title }}
       </h1>
     </div>
-    <div class="w-full pb-2 border-b">
+    <div class="pb-2 w-full border-b">
       <div>
         <span>🗂 </span>
         <nuxt-link v-if="category" :to="`/category/${category.id}/page/1`">
@@ -15,16 +15,12 @@
         </nuxt-link>
         <span>🔖 </span>
         <span v-for="tag in tags" :key="tag.id">
-          <nuxt-link :to="`/tag/${tag.id}/page/1`">
-            #{{ tag.name }}
-          </nuxt-link>
+          <nuxt-link :to="`/tag/${tag.id}/page/1`"> #{{ tag.name }} </nuxt-link>
         </span>
       </div>
-      <p class="mt-1">
-        📅  {{ publishedDate }}
-      </p>
+      <p class="mt-1">📅 {{ publishedDate }}</p>
     </div>
-    <div class="py-4 px-2">
+    <div class="px-2 py-4">
       <div class="prose" v-html="body" />
     </div>
     <div class="mt-2">
@@ -47,7 +43,7 @@ export default Vue.extend({
   components: {
     SnsShareButton
   },
-  async asyncData ({ params }):Promise<AsyncData | void> {
+  async asyncData({ params }): Promise<AsyncData | void> {
     const axiosInstance = axios.create({
       method: 'get',
       headers: {
@@ -60,28 +56,36 @@ export default Vue.extend({
     )
     return data
   },
-  data (): AsyncData | undefined {
+  data(): AsyncData | undefined {
     return undefined
   },
-  head (): MetaInfo {
+  head(): MetaInfo {
     return {
       title: this.formatedTitle,
       meta: [
         { hid: 'og:type', property: 'og:type', content: 'article' },
         { hid: 'og:title', property: 'og:title', content: this.formatedTitle },
-        { hid: 'og:description', property: 'og:description', content: this.descriptionContent },
-        { hid: 'og:url', property: 'og:url', content: `https://halsea-blog.netlify.app/${this.id}/` }
+        {
+          hid: 'og:description',
+          property: 'og:description',
+          content: this.descriptionContent
+        },
+        {
+          hid: 'og:url',
+          property: 'og:url',
+          content: `https://halsea-blog.netlify.app/${this.id}/`
+        }
       ]
     }
   },
   computed: {
-    publishedDate (): string {
+    publishedDate(): string {
       return dayjs(this.publishedAt).format('YYYY-MM-DD')
     },
-    formatedTitle (): string {
+    formatedTitle(): string {
       return `${this.title} | hal_sea_ / blog`
     },
-    descriptionContent (): string {
+    descriptionContent(): string {
       const content = this.body.replace(/<("[^"]*"|'[^']*'|[^'">])*>/g, '')
       return content.length > 120 ? content.slice(0, 120) + '...' : content
     }

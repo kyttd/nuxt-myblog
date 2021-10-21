@@ -2,39 +2,42 @@
   <div class="container flex justify-between mx-auto">
     <div class="w-full">
       <div class="flex items-center justify-between">
-        <h1 class="text-base font-bold">
-          📝 最新記事
-        </h1>
+        <h1 class="text-base font-bold">📝 最新記事</h1>
       </div>
       <div class="mt-2">
-        <ul class="divide-y divide-gray-300 divide-opacity-25">
-          <li v-for="content in contents" :key="content.id" class="py-2 px-4">
+        <ul class="divide-gray-300 divide-opacity-25 divide-y">
+          <li v-for="content in contents" :key="content.id" class="px-4 py-2">
             <nuxt-link :to="`/${content.id}`">
-              <p class="font-bold mb-1">
+              <p class="mb-1 font-bold">
                 {{ content.title }}
               </p>
             </nuxt-link>
             <div class="flex flex-wrap items-start">
-              <div class="justify-center items-start">
+              <div class="items-start justify-center">
                 <div class="mr-4">
                   <span>🗂 </span>
-                  <nuxt-link v-if="content.category" :to="`/category/${content.category.id}/page/1`">
+                  <nuxt-link
+                    v-if="content.category"
+                    :to="`/category/${content.category.id}/page/1`"
+                  >
                     <span class="text-sm">
                       {{ content.category.name }}
                     </span>
                   </nuxt-link>
                   <template v-if="content.tags">
                     <span>🔖 </span>
-                    <span v-for="tag in content.tags" :key="tag.id" class="text-sm">
+                    <span
+                      v-for="tag in content.tags"
+                      :key="tag.id"
+                      class="text-sm"
+                    >
                       <nuxt-link :to="`/tag/${tag.id}/page/1`">
                         #{{ tag.name }}
                       </nuxt-link>
                     </span>
                   </template>
                 </div>
-                <span class="text-sm">
-                  📅  {{ publishedDate(content) }}
-                </span>
+                <span class="text-sm"> 📅 {{ publishedDate(content) }} </span>
               </div>
             </div>
           </li>
@@ -53,7 +56,7 @@ import { BlogItem, BlogIndexApiResponse } from '../types/blog/index'
 interface AsyncData extends BlogIndexApiResponse {}
 
 export default Vue.extend({
-  async asyncData ({ params }):Promise<AsyncData | void> {
+  async asyncData({ params }): Promise<AsyncData | void> {
     const axiosInstance = axios.create({
       method: 'get',
       headers: {
@@ -66,19 +69,23 @@ export default Vue.extend({
     const tagId = params.tagId
     const limit = 20
     const { data } = await axiosInstance.get<BlogIndexApiResponse>(
-      `https://${process.env.SERVICE_DOMAIN}.microcms.io/api/v1/blog?limit=${limit}${
-        (categoryId === undefined && tagId === undefined)
-        ? ''
-        : categoryId !== undefined ? `&filters=category[equals]${categoryId}` : `&filters=tags[contains]${tagId}`
+      `https://${
+        process.env.SERVICE_DOMAIN
+      }.microcms.io/api/v1/blog?limit=${limit}${
+        categoryId === undefined && tagId === undefined
+          ? ''
+          : categoryId !== undefined
+          ? `&filters=category[equals]${categoryId}`
+          : `&filters=tags[contains]${tagId}`
       }&offset=${(parseInt(page) - 1) * limit}`
     )
     return data
   },
-  data (): AsyncData | undefined {
+  data(): AsyncData | undefined {
     return undefined
   },
   computed: {
-    publishedDate () {
+    publishedDate() {
       return function (content: BlogItem) {
         return dayjs(content.publishedAt).format('YYYY-MM-DD')
       }
