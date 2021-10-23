@@ -12,32 +12,13 @@
                 {{ content.title }}
               </p>
             </nuxt-link>
-            <div class="flex flex-wrap items-start">
+            <div class="flex flex-wrap items-start text-sm">
               <div class="items-start justify-center">
                 <div class="mr-4">
-                  <span>🗂 </span>
-                  <nuxt-link
-                    v-if="content.category"
-                    :to="`/category/${content.category.id}/page/1`"
-                  >
-                    <span class="text-sm">
-                      {{ content.category.name }}
-                    </span>
-                  </nuxt-link>
-                  <template v-if="content.tags">
-                    <span>🔖 </span>
-                    <span
-                      v-for="tag in content.tags"
-                      :key="tag.id"
-                      class="text-sm"
-                    >
-                      <nuxt-link :to="`/tag/${tag.id}/page/1`">
-                        #{{ tag.name }}
-                      </nuxt-link>
-                    </span>
-                  </template>
+                  <AnchorCategoty :category="content.category" />
+                  <AnchorTag v-if="content.tags" :tags="content.tags" />
                 </div>
-                <span class="text-sm"> 📅 {{ publishedDate(content) }} </span>
+                <span> 📅 {{ publishedDate(content) }} </span>
               </div>
             </div>
           </li>
@@ -52,10 +33,16 @@ import Vue from 'vue'
 import axios from 'axios'
 import dayjs from 'dayjs'
 import { BlogItem, BlogIndexApiResponse } from '../types/blog/index'
+import AnchorCategoty from '~/components/atoms/AnchorCategory.vue'
+import AnchorTag from '~/components/atoms/AnchorTag.vue'
 
 interface AsyncData extends BlogIndexApiResponse {}
 
 export default Vue.extend({
+  components: {
+    AnchorCategoty,
+    AnchorTag
+  },
   async asyncData({ params }): Promise<AsyncData | void> {
     const axiosInstance = axios.create({
       method: 'get',
