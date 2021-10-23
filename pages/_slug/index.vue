@@ -7,16 +7,8 @@
     </div>
     <div class="pb-2 w-full border-b">
       <div>
-        <span>🗂 </span>
-        <nuxt-link v-if="category" :to="`/category/${category.id}/page/1`">
-          <span>
-            {{ category.name }}
-          </span>
-        </nuxt-link>
-        <span>🔖 </span>
-        <span v-for="tag in tags" :key="tag.id">
-          <nuxt-link :to="`/tag/${tag.id}/page/1`"> #{{ tag.name }} </nuxt-link>
-        </span>
+        <AnchorCategoty :category="category" />
+        <AnchorTag v-if="tags" :tags="tags" />
       </div>
       <p class="mt-1">📅 {{ publishedDate }}</p>
     </div>
@@ -35,12 +27,16 @@ import axios from 'axios'
 import dayjs from 'dayjs'
 import MetaInfo from 'vue-meta'
 import { BlogItem } from '../../types/blog/index'
+import AnchorCategoty from '~/components/atoms/AnchorCategory.vue'
+import AnchorTag from '~/components/atoms/AnchorTag.vue'
 import SnsShareButton from '~/components/commons/SnsShareButton.vue'
 
 interface AsyncData extends BlogItem {}
 
 export default Vue.extend({
   components: {
+    AnchorCategoty,
+    AnchorTag,
     SnsShareButton
   },
   async asyncData({ params }): Promise<AsyncData | void> {
