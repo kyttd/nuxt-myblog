@@ -7,16 +7,16 @@
     </div>
     <div class="pb-2 w-full border-b">
       <div>
-        <AnchorCategoty :category="category" />
+        <AnchorCategoty class="mr-2" :category="category" />
         <AnchorTag v-if="tags" :tags="tags" />
       </div>
-      <p class="mt-1">📅 {{ publishedDate }}</p>
+      <DateLabel :date="publishedAt" />
     </div>
     <div class="px-2 py-4">
       <div class="prose" v-html="body" />
     </div>
     <div class="mt-2">
-      <SnsShareButton :text="formatedTitle" />
+      <SnsShareButton :text="formattedTitle" />
     </div>
   </div>
 </template>
@@ -24,11 +24,11 @@
 <script lang="ts">
 import Vue from 'vue'
 import axios from 'axios'
-import dayjs from 'dayjs'
 import MetaInfo from 'vue-meta'
 import { BlogItem } from '../../types/blog/index'
 import AnchorCategoty from '~/components/atoms/AnchorCategory.vue'
 import AnchorTag from '~/components/atoms/AnchorTag.vue'
+import DateLabel from '~/components/atoms/DateLabel.vue'
 import SnsShareButton from '~/components/commons/SnsShareButton.vue'
 
 interface AsyncData extends BlogItem {}
@@ -37,6 +37,7 @@ export default Vue.extend({
   components: {
     AnchorCategoty,
     AnchorTag,
+    DateLabel,
     SnsShareButton
   },
   async asyncData({ params }): Promise<AsyncData | void> {
@@ -75,10 +76,7 @@ export default Vue.extend({
     }
   },
   computed: {
-    publishedDate(): string {
-      return dayjs(this.publishedAt).format('YYYY-MM-DD')
-    },
-    formatedTitle(): string {
+    formattedTitle(): string {
       return `${this.title} | hal_sea_ / blog`
     },
     descriptionContent(): string {

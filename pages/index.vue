@@ -15,10 +15,10 @@
             <div class="flex flex-wrap items-start text-sm">
               <div class="items-start justify-center">
                 <div class="mr-4">
-                  <AnchorCategoty :category="content.category" />
+                  <AnchorCategoty class="mr-2" :category="content.category" />
                   <AnchorTag v-if="content.tags" :tags="content.tags" />
                 </div>
-                <span> 📅 {{ publishedDate(content) }} </span>
+                <DateLabel :date="content.publishedAt" />
               </div>
             </div>
           </li>
@@ -35,13 +35,15 @@ import dayjs from 'dayjs'
 import { BlogItem, BlogIndexApiResponse } from '../types/blog/index'
 import AnchorCategoty from '~/components/atoms/AnchorCategory.vue'
 import AnchorTag from '~/components/atoms/AnchorTag.vue'
+import DateLabel from '~/components/atoms/DateLabel.vue'
 
 interface AsyncData extends BlogIndexApiResponse {}
 
 export default Vue.extend({
   components: {
     AnchorCategoty,
-    AnchorTag
+    AnchorTag,
+    DateLabel
   },
   async asyncData({ params }): Promise<AsyncData | void> {
     const axiosInstance = axios.create({
@@ -70,13 +72,6 @@ export default Vue.extend({
   },
   data(): AsyncData | undefined {
     return undefined
-  },
-  computed: {
-    publishedDate() {
-      return function (content: BlogItem) {
-        return dayjs(content.publishedAt).format('YYYY-MM-DD')
-      }
-    }
   }
 })
 </script>
