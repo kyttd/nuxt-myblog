@@ -1,6 +1,6 @@
 <template>
   <span>
-    <span>🔖 </span>
+    <span class="mr-1">🔖 </span>
     <span v-for="tag in tags" :key="tag.id">
       <nuxt-link :to="`/tag/${tag.id}/page/1`"> #{{ tag.name }} </nuxt-link>
     </span>

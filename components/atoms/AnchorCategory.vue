@@ -1,6 +1,6 @@
 <template>
   <span>
-    <span>🗂 </span>
+    <span class="mr-1">🗂 </span>
     <nuxt-link v-if="category" :to="`/category/${category.id}/page/1`">
       <span>
         {{ category.name }}
