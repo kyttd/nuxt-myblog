@@ -58,10 +58,10 @@ export default Vue.extend({
   },
   head(): MetaInfo {
     return {
-      title: this.formatedTitle,
+      title: this.formattedTitle,
       meta: [
         { hid: 'og:type', property: 'og:type', content: 'article' },
-        { hid: 'og:title', property: 'og:title', content: this.formatedTitle },
+        { hid: 'og:title', property: 'og:title', content: this.formattedTitle },
         {
           hid: 'og:description',
           property: 'og:description',
