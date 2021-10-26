@@ -1,9 +1,17 @@
 import axios from 'axios'
 
+const { API_KEY, API_URL } = process.env
 const siteName = 'hal_sea_ / blog'
 const baseUrl = 'https://halsea-blog.netlify.app/'
 
 export default {
+  publicRuntimeConfig: {
+    apiUrl: API_URL,
+    apiKey: process.env.NODE_ENV !== 'production' ? API_KEY : undefined
+  },
+  privateRuntimeConfig: {
+    apiKey: API_KEY
+  },
   // Target: https://go.nuxtjs.dev/config-target
   target: 'static',
 

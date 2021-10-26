@@ -31,8 +31,7 @@
 <script lang="ts">
 import Vue from 'vue'
 import axios from 'axios'
-import dayjs from 'dayjs'
-import { BlogItem, BlogIndexApiResponse } from '../types/blog/index'
+import { BlogIndexApiResponse } from '../types/blog/index'
 import AnchorCategoty from '~/components/atoms/AnchorCategory.vue'
 import AnchorTag from '~/components/atoms/AnchorTag.vue'
 import DateLabel from '~/components/atoms/DateLabel.vue'
@@ -45,12 +44,12 @@ export default Vue.extend({
     AnchorTag,
     DateLabel
   },
-  async asyncData({ params }): Promise<AsyncData | void> {
+  async asyncData({ $config, params }): Promise<AsyncData | void> {
     const axiosInstance = axios.create({
       method: 'get',
       headers: {
         'Content-Type': 'application/json',
-        'X-API-KEY': process.env.API_KEY as string
+        'X-API-KEY': $config.apiKey as string
       }
     })
     const page = params.p || '1'
@@ -58,9 +57,7 @@ export default Vue.extend({
     const tagId = params.tagId
     const limit = 20
     const { data } = await axiosInstance.get<BlogIndexApiResponse>(
-      `https://${
-        process.env.SERVICE_DOMAIN
-      }.microcms.io/api/v1/blog?limit=${limit}${
+      `${$config.apiUrl}/blog?limit=${limit}${
         categoryId === undefined && tagId === undefined
           ? ''
           : categoryId !== undefined

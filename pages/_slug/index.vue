@@ -40,16 +40,16 @@ export default Vue.extend({
     DateLabel,
     SnsShareButton
   },
-  async asyncData({ params }): Promise<AsyncData | void> {
+  async asyncData({ $config, params }): Promise<AsyncData | void> {
     const axiosInstance = axios.create({
       method: 'get',
       headers: {
         'Content-Type': 'application/json',
-        'X-API-KEY': process.env.API_KEY as string
+        'X-API-KEY': $config.apiKey as string
       }
     })
     const { data } = await axiosInstance.get<AsyncData>(
-      `https://${process.env.SERVICE_DOMAIN}.microcms.io/api/v1/blog/${params.slug}`
+      `${$config.apiUrl}/blog/${params.slug}`
     )
     return data
   },
