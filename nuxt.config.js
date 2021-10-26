@@ -5,6 +5,9 @@ const siteName = 'hal_sea_ / blog'
 const baseUrl = 'https://halsea-blog.netlify.app/'
 
 export default {
+  // Target: https://go.nuxtjs.dev/config-target
+  target: 'static',
+
   publicRuntimeConfig: {
     apiUrl: API_URL,
     apiKey: process.env.NODE_ENV !== 'production' ? API_KEY : undefined
@@ -12,8 +15,6 @@ export default {
   privateRuntimeConfig: {
     apiKey: API_KEY
   },
-  // Target: https://go.nuxtjs.dev/config-target
-  target: 'static',
 
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
