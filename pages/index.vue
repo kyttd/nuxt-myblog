@@ -1,6 +1,6 @@
 <template>
   <div class="container flex flex-wrap justify-between mx-auto">
-    <div class="w-full sm:w-3/5">
+    <div class="mb-10 w-full sm:w-3/5">
       <div class="flex items-center justify-between">
         <h1 class="text-lg font-bold">📝 最新記事</h1>
       </div>
@@ -26,26 +26,8 @@
       </div>
     </div>
     <div class="justify-center m-auto w-full sm:m-0 sm:w-2/6">
-      <h1 class="text-lg font-bold"><span class="mr-1">🗂</span>カテゴリ</h1>
-      <div class="mt-2">
-        <ul class="divide-gray-300 divide-opacity-25 divide-y">
-          <li
-            v-for="category in categories"
-            :key="category.id"
-            class="px-4 py-2"
-          >
-            {{ category.name }}
-          </li>
-        </ul>
-      </div>
-      <h1 class="text-lg font-bold"><span class="mr-1">🔖</span>カテゴリ</h1>
-      <div class="mt-2">
-        <ul class="divide-gray-300 divide-opacity-25 divide-y">
-          <li v-for="tag in tags" :key="tag.id" class="px-4 py-2">
-            {{ tag.name }}
-          </li>
-        </ul>
-      </div>
+      <CategoryList class="mb-10" :categories="categories" />
+      <Tags :tags="tags" />
     </div>
   </div>
 </template>
@@ -64,6 +46,8 @@ import {
 import AnchorCategoty from '~/components/atoms/AnchorCategory.vue'
 import AnchorTag from '~/components/atoms/AnchorTag.vue'
 import DateLabel from '~/components/atoms/DateLabel.vue'
+import CategoryList from '~/components/categories/CategoryList.vue'
+import Tags from '~/components/tags/Tags.vue'
 
 type AsyncData = {
   articles: BlogItem[]
@@ -75,7 +59,9 @@ export default Vue.extend({
   components: {
     AnchorCategoty,
     AnchorTag,
-    DateLabel
+    DateLabel,
+    CategoryList,
+    Tags
   },
   async asyncData({ $config, params }): Promise<AsyncData | void> {
     const axiosInstance = axios.create({
