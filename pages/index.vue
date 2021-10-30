@@ -1,33 +1,11 @@
 <template>
   <div class="container flex flex-wrap justify-between mx-auto">
     <div class="mb-10 w-full sm:w-3/5">
-      <div class="flex items-center justify-between">
-        <h1 class="text-lg font-bold">📝 最新記事</h1>
-      </div>
-      <div class="mt-2">
-        <ul class="divide-gray-300 divide-opacity-25 divide-y">
-          <li v-for="content in articles" :key="content.id" class="px-4 py-2">
-            <nuxt-link :to="`/${content.id}`">
-              <p class="mb-1 font-bold">
-                {{ content.title }}
-              </p>
-            </nuxt-link>
-            <div class="flex flex-wrap items-start text-sm">
-              <div class="items-start justify-center">
-                <div class="mr-4">
-                  <AnchorCategoty class="mr-2" :category="content.category" />
-                  <AnchorTag v-if="content.tags" :tags="content.tags" />
-                </div>
-                <DateLabel :date="content.publishedAt" />
-              </div>
-            </div>
-          </li>
-        </ul>
-      </div>
+      <ArticleList :articles="articles" />
     </div>
     <div class="justify-center m-auto w-full sm:m-0 sm:w-2/6">
       <CategoryList class="mb-10" :categories="categories" />
-      <Tags :tags="tags" />
+      <Tags class="mb-10" :tags="tags" />
     </div>
   </div>
 </template>
@@ -43,9 +21,7 @@ import {
   CategoriesApiResponse,
   TagsApiResponse
 } from '../types/blog/index'
-import AnchorCategoty from '~/components/atoms/AnchorCategory.vue'
-import AnchorTag from '~/components/atoms/AnchorTag.vue'
-import DateLabel from '~/components/atoms/DateLabel.vue'
+import ArticleList from '~/components/articles/ArticleList.vue'
 import CategoryList from '~/components/categories/CategoryList.vue'
 import Tags from '~/components/tags/Tags.vue'
 
@@ -57,9 +33,7 @@ type AsyncData = {
 
 export default Vue.extend({
   components: {
-    AnchorCategoty,
-    AnchorTag,
-    DateLabel,
+    ArticleList,
     CategoryList,
     Tags
   },
