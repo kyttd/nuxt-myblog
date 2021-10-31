@@ -15,4 +15,6 @@ export type BlogItem = CommonItem & {
   tags: TagItem[]
 }
 
-export type BlogIndexApiResponse = CommonList<BlogItem>
+export type BlogsApiResponse = CommonList<BlogItem>
+export type CategoriesApiResponse = CommonList<CategoryItem>
+export type TagsApiResponse = CommonList<TagItem>
