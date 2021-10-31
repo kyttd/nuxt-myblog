@@ -1,6 +1,8 @@
 <template>
   <div>
-    <h1 class="text-lg font-bold"><span class="mr-1">🗂</span>カテゴリ</h1>
+    <h1 class="text-lg items-center font-bold">
+      <span class="mr-1">🗂</span>カテゴリ
+    </h1>
     <div class="px-4">
       <ul class="divide-gray-300 divide-opacity-25 divide-y">
         <li v-for="category in categories" :key="category.id" class="px-4 py-2">

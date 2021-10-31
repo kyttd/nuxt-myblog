@@ -1,6 +1,6 @@
 <template>
   <div class="container flex flex-wrap justify-between mx-auto">
-    <div class="mb-10 w-full sm:w-3/5">
+    <div class="mb-20 w-full sm:w-3/5">
       <ArticleList :articles="articles" />
     </div>
     <div class="justify-center m-auto w-full sm:m-0 sm:w-2/6">

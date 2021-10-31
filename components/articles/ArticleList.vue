@@ -1,10 +1,17 @@
 <template>
   <div>
-    <div class="flex items-center justify-between">
-      <h1 class="text-lg font-bold">📝 最新記事</h1>
-    </div>
+    <h1 class="items-center text-lg font-bold">
+      <span class="mr-1">📝</span>記事一覧
+    </h1>
     <div class="">
-      <ul class="divide-gray-300 divide-opacity-25 divide-y">
+      <ul
+        class="
+          divide-gray-300
+          border-b
+          divide-opacity-25 divide-y
+          sm:border-b-0
+        "
+      >
         <li
           v-for="article in articles"
           :key="article.id"
