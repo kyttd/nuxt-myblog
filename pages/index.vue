@@ -75,7 +75,6 @@ export default Vue.extend({
       `${$config.apiUrl}/tags?limit=100`
     )
     tags = tagRes.data.contents
-    console.log(tags)
 
     return { articles, categories, tags }
   },

@@ -1,8 +1,8 @@
 <template>
   <div>
     <h1 class="text-lg font-bold"><span class="mr-1">🔖</span>タグ</h1>
-    <div class="px-4">
-      <span v-for="tag in tags" :key="tag.id" class="px-2 py-2 text-sm">
+    <div class="mt-2 px-4">
+      <span v-for="tag in tags" :key="tag.id" class="px-2 text-sm">
         <nuxt-link v-if="tag" :to="`/tag/${tag.id}/page/1`">
           #{{ tag.name }}
         </nuxt-link>
