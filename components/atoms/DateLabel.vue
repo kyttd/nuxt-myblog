@@ -1,7 +1,13 @@
 <template>
   <span>
-    <span class="mr-1">📅 </span>
-    <span>{{ formattedDate }}</span>
+    <unicon
+      class="align-middle"
+      width="18"
+      height="18"
+      name="calender"
+      fill="DarkSlateGray"
+    />
+    <span class="align-middle">{{ formattedDate }}</span>
   </span>
 </template>
 

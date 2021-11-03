@@ -1,8 +1,14 @@
 <template>
   <span>
-    <span class="mr-1">🔖 </span>
+    <unicon
+      class="align-middle"
+      width="18"
+      height="18"
+      name="tag-alt"
+      fill="royalblue"
+    />
     <span v-for="tag in tags" :key="tag.id">
-      <nuxt-link :to="`/tag/${tag.id}/page/1`" class="mr-2">
+      <nuxt-link :to="`/tag/${tag.id}/page/1`" class="align-middle mr-2">
         #{{ tag.name }}
       </nuxt-link>
     </span>
