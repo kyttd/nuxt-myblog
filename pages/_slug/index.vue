@@ -7,8 +7,8 @@
     </div>
     <div class="pb-2 w-full border-b">
       <div>
-        <AnchorCategoty class="mr-2" :category="category" />
-        <AnchorTag v-if="tags" :tags="tags" />
+        <AnchorCategoty class="mr-6" :category="category" />
+        <AnchorTag v-if="tags" class="block sm:inline" :tags="tags" />
       </div>
       <DateLabel :date="publishedAt" />
     </div>
