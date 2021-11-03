@@ -8,9 +8,9 @@ module.exports = {
   ],
   darkMode: false, // or 'media' or 'class'
   theme: {
-    colors: {
-      navy: {
-        mad: '#364961'
+    extend: {
+      colors: {
+        'navy-mad': '#364961'
       }
     }
   },
