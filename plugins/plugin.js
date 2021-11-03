@@ -4,17 +4,7 @@ import {
   uniFileEditAlt,
   uniFolderOpen,
   uniTagAlt,
-  uniCalender,
-  uniLayerGroupMonochrome,
-  uniCarWash
+  uniCalender
 } from 'vue-unicons/dist/icons'
-// import 'vue-unicons/dist/vue-unicons-ssr.css'
-Unicon.add([
-  uniFileEditAlt,
-  uniFolderOpen,
-  uniTagAlt,
-  uniCalender,
-  uniLayerGroupMonochrome,
-  uniCarWash
-])
+Unicon.add([uniFileEditAlt, uniFolderOpen, uniTagAlt, uniCalender])
 Vue.use(Unicon)
