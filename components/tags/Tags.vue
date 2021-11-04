@@ -3,7 +3,11 @@
     <HeadingWithIcon unicon-name="tag-alt" title="タグ" />
     <div class="mt-2 px-2">
       <span v-for="tag in tags" :key="tag.id" class="px-2 text-sm">
-        <nuxt-link v-if="tag" :to="`/tag/${tag.id}/page/1`">
+        <nuxt-link
+          v-if="tag"
+          class="hover:opacity-70 duration-300"
+          :to="`/tag/${tag.id}/page/1`"
+        >
           #{{ tag.name }}
         </nuxt-link>
       </span>

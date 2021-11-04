@@ -10,7 +10,6 @@
               px-2
               py-1
               bg-opacity-20
-              border-0
               rounded
               duration-300
               sm:px-4

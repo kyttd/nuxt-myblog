@@ -8,7 +8,7 @@
       fill="royalblue"
     />
     <nuxt-link v-if="category" :to="`/category/${category.id}/page/1`">
-      <span class="align-middle">
+      <span class="align-middle hover:opacity-70 duration-300">
         {{ category.name }}
       </span>
     </nuxt-link>

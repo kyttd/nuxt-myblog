@@ -8,7 +8,10 @@
       fill="royalblue"
     />
     <span v-for="tag in tags" :key="tag.id">
-      <nuxt-link :to="`/tag/${tag.id}/page/1`" class="align-middle mr-2">
+      <nuxt-link
+        :to="`/tag/${tag.id}/page/1`"
+        class="align-middle mr-2 hover:opacity-70 duration-300"
+      >
         #{{ tag.name }}
       </nuxt-link>
     </span>
