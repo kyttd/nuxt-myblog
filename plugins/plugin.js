@@ -4,7 +4,16 @@ import {
   uniFileEditAlt,
   uniFolderOpen,
   uniTagAlt,
-  uniCalender
+  uniCalender,
+  uniTwitterAlt,
+  uniUserCircle
 } from 'vue-unicons/dist/icons'
-Unicon.add([uniFileEditAlt, uniFolderOpen, uniTagAlt, uniCalender])
+Unicon.add([
+  uniFileEditAlt,
+  uniFolderOpen,
+  uniTagAlt,
+  uniCalender,
+  uniTwitterAlt,
+  uniUserCircle
+])
 Vue.use(Unicon)
