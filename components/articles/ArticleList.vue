@@ -12,27 +12,29 @@
               bg-opacity-20
               border-0
               rounded
+              duration-300
               sm:px-4
             "
           >
-            <nuxt-link :to="`/${article.id}`">
+            <nuxt-link class="block" :to="`/${article.id}`">
               <p class="py-2 font-bold">
                 {{ article.title }}
               </p>
-            </nuxt-link>
-            <div class="flex flex-wrap items-start text-sm">
-              <div class="items-start justify-center">
-                <div class="mb-1">
-                  <AnchorCategoty class="mr-6" :category="article.category" />
-                  <AnchorTag
-                    v-if="article.tags"
-                    class="block sm:inline"
-                    :tags="article.tags"
-                  />
+
+              <div class="flex flex-wrap items-start text-sm">
+                <div class="items-start justify-center">
+                  <div class="mb-1">
+                    <AnchorCategoty class="mr-6" :category="article.category" />
+                    <AnchorTag
+                      v-if="article.tags"
+                      class="block sm:inline"
+                      :tags="article.tags"
+                    />
+                  </div>
+                  <DateLabel :date="article.publishedAt" />
                 </div>
-                <DateLabel :date="article.publishedAt" />
               </div>
-            </div>
+            </nuxt-link>
           </div>
         </li>
       </ul>
