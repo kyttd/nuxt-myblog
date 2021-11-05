@@ -6,16 +6,16 @@
         <li v-for="article in articles" :key="article.id" class="py-1">
           <div
             class="
-              hover:bg-blue-50
               px-2
               py-1
+              hover:bg-blue-50
               bg-opacity-20
               rounded
               duration-300
               sm:px-4
             "
           >
-            <nuxt-link class="block" :to="`/${article.id}`">
+            <nuxt-link :to="`/${article.id}`">
               <p class="py-2 font-bold">
                 {{ article.title }}
               </p>
