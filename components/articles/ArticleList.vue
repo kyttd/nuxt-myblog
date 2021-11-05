@@ -6,34 +6,34 @@
         <li v-for="article in articles" :key="article.id" class="py-1">
           <div
             class="
-              hover:bg-blue-50
               px-2
               py-1
+              hover:bg-blue-50
               bg-opacity-20
               rounded
               duration-300
               sm:px-4
             "
           >
-            <nuxt-link class="block" :to="`/${article.id}`">
+            <!-- TODO: nuxt-linkでラップすると重複表示されるバグ出るので一旦title部分のみ -->
+            <nuxt-link class="block w-full h-full" :to="`/${article.id}`">
               <p class="py-2 font-bold">
                 {{ article.title }}
               </p>
-
-              <div class="flex flex-wrap items-start text-sm">
-                <div class="items-start justify-center">
-                  <div class="mb-1">
-                    <AnchorCategoty class="mr-6" :category="article.category" />
-                    <AnchorTag
-                      v-if="article.tags"
-                      class="block sm:inline"
-                      :tags="article.tags"
-                    />
-                  </div>
-                  <DateLabel :date="article.publishedAt" />
-                </div>
-              </div>
             </nuxt-link>
+            <div class="flex flex-wrap items-start text-sm">
+              <div class="items-start">
+                <div class="mb-1">
+                  <AnchorCategoty class="mr-6" :category="article.category" />
+                  <AnchorTag
+                    v-if="article.tags"
+                    class="block sm:inline"
+                    :tags="article.tags"
+                  />
+                </div>
+                <DateLabel :date="article.publishedAt" />
+              </div>
+            </div>
           </div>
         </li>
       </ul>
