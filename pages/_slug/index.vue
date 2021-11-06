@@ -1,21 +1,29 @@
 <template>
-  <div class="m-auto w-full min-h-screen sm:w-3/4">
-    <div class="items-center justify-center">
-      <h1 class="mb-2 break-words text-2xl font-bold sm:break-normal">
+  <div class="m-auto w-full min-h-screen sm:w-4/5">
+    <div class="items-center justify-center mb-4">
+      <h1
+        class="
+          text-center
+          break-words
+          text-2xl
+          font-bold
+          sm:break-normal sm:text-3xl sm:font-extrabold
+        "
+      >
         {{ title }}
       </h1>
     </div>
-    <div class="pb-2 w-full border-b">
-      <div>
+    <div class="mb-4 pb-4 w-full text-center border-b">
+      <div class="mb-2">
         <AnchorCategoty class="mr-6" :category="category" />
         <AnchorTag v-if="tags" class="block sm:inline" :tags="tags" />
       </div>
       <DateLabel :date="publishedAt" />
     </div>
-    <div class="px-2 py-4">
-      <div class="prose" v-html="body" />
+    <div class="px-2 py-4 sm:px-4">
+      <div class="prose max-w-none" v-html="body" />
     </div>
-    <div class="mt-2">
+    <div class="px-2 py-4 sm:px-4">
       <SnsShareButton :text="formattedTitle" />
     </div>
   </div>
