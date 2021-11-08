@@ -10,18 +10,31 @@
           sm:break-normal sm:text-3xl sm:font-extrabold
         "
       >
-        {{ title }}
+        {{ article.title }}
       </h1>
     </div>
     <div class="mb-4 pb-4 w-full text-center border-b">
       <div class="mb-2">
-        <AnchorCategoty class="mr-6" :category="category" />
-        <AnchorTag v-if="tags" class="block sm:inline" :tags="tags" />
+        <AnchorCategoty class="mr-6" :category="article.category" />
+        <AnchorTag
+          v-if="article.tags"
+          class="block sm:inline"
+          :tags="article.tags"
+        />
       </div>
-      <DateLabel :date="publishedAt" />
+      <DateLabel :date="article.publishedAt" />
+    </div>
+    <div>
+      <ul ref="toc" class="toc">
+        <li v-for="item in toc" :key="item.id">
+          <n-link v-scroll-to="`#${item.id}`" to>
+            {{ item.text }}
+          </n-link>
+        </li>
+      </ul>
     </div>
     <div class="px-2 py-4 sm:px-4">
-      <div class="prose max-w-none" v-html="body" />
+      <div class="prose max-w-none" v-html="article.body" />
     </div>
     <div class="px-2 py-4 sm:px-4">
       <SnsShareButton :text="formattedTitle" />
@@ -33,13 +46,17 @@
 import Vue from 'vue'
 import axios from 'axios'
 import MetaInfo from 'vue-meta'
+import cheerio from 'cheerio'
 import { BlogItem } from '../../types/blog/index'
 import AnchorCategoty from '~/components/atoms/AnchorCategory.vue'
 import AnchorTag from '~/components/atoms/AnchorTag.vue'
 import DateLabel from '~/components/atoms/DateLabel.vue'
 import SnsShareButton from '~/components/commons/SnsShareButton.vue'
 
-interface AsyncData extends BlogItem {}
+interface AsyncData {
+  article: BlogItem
+  toc: any
+}
 
 export default Vue.extend({
   components: {
@@ -56,10 +73,23 @@ export default Vue.extend({
         'X-API-KEY': $config.apiKey as string
       }
     })
-    const { data } = await axiosInstance.get<AsyncData>(
+
+    let article = null
+
+    const blogRes = await axiosInstance.get<BlogItem>(
       `${$config.apiUrl}/blog/${params.slug}`
     )
-    return data
+    article = blogRes.data
+
+    const $ = cheerio.load(article.body)
+    const headings = $('h1, h2, h3').toArray()
+    const toc = headings.map((data) => ({
+      text: (data.children[0] as any).data,
+      id: data.attribs.id,
+      name: data.name
+    }))
+
+    return { article, toc }
   },
   data(): AsyncData | undefined {
     return undefined
@@ -78,17 +108,20 @@ export default Vue.extend({
         {
           hid: 'og:url',
           property: 'og:url',
-          content: `https://halsea-blog.netlify.app/${this.id}/`
+          content: `https://halsea-blog.netlify.app/${this.article.id}/`
         }
       ]
     }
   },
   computed: {
     formattedTitle(): string {
-      return `${this.title} | hal_sea_ / blog`
+      return `${this.article.title} | hal_sea_ / blog`
     },
     descriptionContent(): string {
-      const content = this.body.replace(/<("[^"]*"|'[^']*'|[^'">])*>/g, '')
+      const content = this.article.body.replace(
+        /<("[^"]*"|'[^']*'|[^'">])*>/g,
+        ''
+      )
       return content.length > 120 ? content.slice(0, 120) + '...' : content
     }
   }
