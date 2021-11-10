@@ -24,9 +24,13 @@
       </div>
       <DateLabel :date="article.publishedAt" />
     </div>
-    <div>
-      <ul ref="toc" class="toc">
-        <li v-for="item in toc" :key="item.id">
+    <div
+      v-if="isShowToc"
+      class="mb-4 px-4 py-2 w-full bg-gray-100 border rounded"
+    >
+      <ul ref="toc" class="toc divide-y">
+        <li class="py-2 font-bold">目次</li>
+        <li v-for="item in toc" :key="item.id" class="py-2">
           <n-link v-scroll-to="`#${item.id}`" to>
             {{ item.text }}
           </n-link>
@@ -123,6 +127,9 @@ export default Vue.extend({
         ''
       )
       return content.length > 120 ? content.slice(0, 120) + '...' : content
+    },
+    isShowToc(): boolean {
+      return !!this.toc.length
     }
   }
 })
