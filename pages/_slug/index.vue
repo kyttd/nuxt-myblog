@@ -24,34 +24,11 @@
       </div>
       <DateLabel :date="article.publishedAt" />
     </div>
-    <div
-      v-if="isShowToc"
-      class="mb-4 px-4 py-2 w-full bg-gray-100 border rounded"
-    >
-      <ul ref="toc" class="toc divide-y">
-        <li class="py-2 font-bold">
-          <unicon
-            class="align-middle mr-1"
-            width="18"
-            height="18"
-            name="list-ul"
-            fill="royalblue"
-          />
-          <span class="align-middle">目次</span>
-        </li>
-        <li v-for="item in toc" :key="item.id" class="py-2">
-          <nuxt-link v-scroll-to="`#${item.id}`" to>
-            <span :class="tocStyle(item.name)">- {{ item.text }}</span>
-          </nuxt-link>
-        </li>
-      </ul>
-    </div>
+    <Toc v-if="isShowToc" :toc-list="toc" />
     <div class="px-2 py-4 sm:px-4">
       <div class="prose max-w-none" v-html="article.body" />
     </div>
-    <div class="px-2 py-4 sm:px-4">
-      <SnsShareButton :text="formattedTitle" />
-    </div>
+    <SnsShareButton class="px-2 py-4 sm:px-4" :text="formattedTitle" />
   </div>
 </template>
 
@@ -65,6 +42,7 @@ import AnchorCategoty from '~/components/atoms/AnchorCategory.vue'
 import AnchorTag from '~/components/atoms/AnchorTag.vue'
 import DateLabel from '~/components/atoms/DateLabel.vue'
 import SnsShareButton from '~/components/commons/SnsShareButton.vue'
+import Toc from '~/components/articles/Toc.vue'
 
 interface AsyncData {
   article: BlogItem
@@ -76,7 +54,8 @@ export default Vue.extend({
     AnchorCategoty,
     AnchorTag,
     DateLabel,
-    SnsShareButton
+    SnsShareButton,
+    Toc
   },
   async asyncData({ $config, params }): Promise<AsyncData | void> {
     const axiosInstance = axios.create({
@@ -139,18 +118,6 @@ export default Vue.extend({
     },
     isShowToc(): boolean {
       return !!this.toc.length
-    },
-    tocStyle() {
-      return function (name: string): string | undefined {
-        switch (name) {
-          case 'h2':
-            return 'ml-2 font-semibold'
-          case 'h3':
-            return 'ml-4'
-          case 'h4':
-            return 'ml-6'
-        }
-      }
     }
   }
 })
