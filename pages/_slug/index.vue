@@ -36,7 +36,8 @@
             height="18"
             name="list-ul"
             fill="royalblue"
-          />目次
+          />
+          <span class="align-middle">目次</span>
         </li>
         <li v-for="item in toc" :key="item.id" class="py-2">
           <nuxt-link v-scroll-to="`#${item.id}`" to>
