@@ -11,7 +11,7 @@
         />
         <span class="align-middle">目次</span>
       </li>
-      <li v-for="item in tocList" :key="item.id" class="py-2">
+      <li v-for="item in tocList" :key="item.id" class="py-1 text-sm">
         <nuxt-link v-scroll-to="`#${item.id}`" to>
           <span :class="tocStyle(item.name)">- {{ item.text }}</span>
         </nuxt-link>
