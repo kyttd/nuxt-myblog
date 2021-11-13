@@ -31,9 +31,9 @@
       <ul ref="toc" class="toc divide-y">
         <li class="py-2 font-bold">目次</li>
         <li v-for="item in toc" :key="item.id" class="py-2">
-          <n-link v-scroll-to="`#${item.id}`" to>
+          <nuxt-link v-scroll-to="`#${item.id}`" to>
             {{ item.text }}
-          </n-link>
+          </nuxt-link>
         </li>
       </ul>
     </div>
