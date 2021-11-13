@@ -25,7 +25,7 @@
       <DateLabel :date="article.publishedAt" />
     </div>
     <Toc v-if="isShowToc" :toc-list="toc" />
-    <div class="px-2 py-4 sm:px-4">
+    <div class="px-2 py-4 border-b sm:px-4">
       <div class="prose max-w-none" v-html="article.body" />
     </div>
     <SnsShareButton class="px-2 py-4 sm:px-4" :text="formattedTitle" />
