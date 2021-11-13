@@ -21,6 +21,7 @@
     "dayjs": "^1.10.7",
     "nuxt": "^2.15.7",
     "vue-meta": "^2.4.0",
+    "vue-scrollto": "^2.20.0",
     "vue-tweet-embed": "^2.4.0",
     "vue-unicons": "^3.2.1"
   },
