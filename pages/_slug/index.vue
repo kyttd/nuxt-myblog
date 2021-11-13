@@ -37,7 +37,7 @@ import Vue from 'vue'
 import axios from 'axios'
 import MetaInfo from 'vue-meta'
 import cheerio from 'cheerio'
-import { BlogItem } from '../../types/blog/index'
+import { BlogItem, TocItem } from '../../types/blog/index'
 import AnchorCategoty from '~/components/atoms/AnchorCategory.vue'
 import AnchorTag from '~/components/atoms/AnchorTag.vue'
 import DateLabel from '~/components/atoms/DateLabel.vue'
@@ -46,7 +46,7 @@ import Toc from '~/components/articles/Toc.vue'
 
 interface AsyncData {
   article: BlogItem
-  toc: any
+  toc: TocItem[]
 }
 
 export default Vue.extend({
@@ -76,9 +76,9 @@ export default Vue.extend({
     const $ = cheerio.load(article.body)
     const headings = $('h1, h2, h3').toArray()
     const toc = headings.map((data) => ({
-      text: (data.children[0] as any).data,
       id: data.attribs.id,
-      name: data.name
+      name: data.name,
+      text: (data.children[0] as any).data as string | undefined
     }))
 
     return { article, toc }
