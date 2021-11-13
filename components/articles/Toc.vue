@@ -25,7 +25,6 @@ import Vue, { PropType } from 'vue'
 
 export default Vue.extend({
   props: {
-    tags: { type: Array as PropType<any>, required: true },
     tocList: { type: Array as PropType<any>, required: true }
   },
   computed: {
