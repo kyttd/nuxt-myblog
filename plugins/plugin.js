@@ -7,7 +7,8 @@ import {
   uniCalender,
   uniTwitterAlt,
   uniUserCircle,
-  uniDocumentLayoutLeft
+  uniDocumentLayoutLeft,
+  uniListUl
 } from 'vue-unicons/dist/icons'
 Unicon.add([
   uniFileEditAlt,
@@ -16,6 +17,7 @@ Unicon.add([
   uniCalender,
   uniTwitterAlt,
   uniUserCircle,
-  uniDocumentLayoutLeft
+  uniDocumentLayoutLeft,
+  uniListUl
 ])
 Vue.use(Unicon)

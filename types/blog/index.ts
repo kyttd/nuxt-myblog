@@ -15,6 +15,12 @@ export type BlogItem = CommonItem & {
   tags: TagItem[]
 }
 
+export type TocItem = {
+  id: string
+  name: string
+  text: string | undefined
+}
+
 export type BlogsApiResponse = CommonList<BlogItem>
 export type CategoriesApiResponse = CommonList<CategoryItem>
 export type TagsApiResponse = CommonList<TagItem>
