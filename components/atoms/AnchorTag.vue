@@ -1,12 +1,14 @@
 <template>
   <span>
-    <unicon
-      class="align-middle"
-      width="18"
-      height="18"
-      name="tag-alt"
-      fill="royalblue"
-    />
+    <client-only>
+      <unicon
+        class="align-middle"
+        width="18"
+        height="18"
+        name="tag-alt"
+        fill="royalblue"
+      />
+    </client-only>
     <span v-for="tag in tags" :key="tag.id">
       <nuxt-link
         :to="`/tag/${tag.id}/page/1`"

@@ -1,12 +1,14 @@
 <template>
   <span>
-    <unicon
-      class="align-middle"
-      width="18"
-      height="18"
-      name="calender"
-      fill="DarkSlateGray"
-    />
+    <client-only>
+      <unicon
+        class="align-middle"
+        width="18"
+        height="18"
+        name="calender"
+        fill="DarkSlateGray"
+      />
+    </client-only>
     <span class="align-middle">{{ formattedDate }}</span>
   </span>
 </template>
