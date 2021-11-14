@@ -2,13 +2,15 @@
   <div class="mb-4 px-4 py-2 w-full bg-gray-100 border rounded">
     <ul ref="toc" class="toc divide-y">
       <li class="py-2 font-bold">
-        <unicon
-          class="align-middle mr-1"
-          width="18"
-          height="18"
-          name="list-ul"
-          fill="royalblue"
-        />
+        <client-only>
+          <unicon
+            class="align-middle mr-1"
+            width="18"
+            height="18"
+            name="list-ul"
+            fill="royalblue"
+          />
+        </client-only>
         <span class="align-middle">目次</span>
       </li>
       <li v-for="item in tocList" :key="item.id" class="py-1 text-sm">

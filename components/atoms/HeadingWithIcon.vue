@@ -1,6 +1,8 @@
 <template>
-  <h2 class="bg-blue-100 p-2 w-full bg-opacity-50 border-0 rounded">
-    <unicon class="align-middle" :name="uniconName" fill="royalblue" />
+  <h2 class="p-2 w-full bg-blue-100 bg-opacity-50 border-0 rounded">
+    <client-only>
+      <unicon class="align-middle" :name="uniconName" fill="royalblue" />
+    </client-only>
     <span class="align-middle text-lg font-bold">{{ title }}</span>
   </h2>
 </template>
